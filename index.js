@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load environment variables from .env file
+
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const swaggerUi = require('swagger-ui-express');
@@ -6,10 +8,10 @@ const movies = require('./data/movies');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Chave secreta para JWT (em produção, deve estar em variável de ambiente)
-const JWT_SECRET = process.env.JWT_SECRET || 'sua-chave-secreta-super-segura';
+// JWT secret key (in production, should be in environment variable)
+const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secure-secret-key';
 
-// Credenciais fixas para teste
+// Fixed credentials for testing
 const AUTH_USER = 'teste';
 const AUTH_PASSWORD = 'teste';
 
