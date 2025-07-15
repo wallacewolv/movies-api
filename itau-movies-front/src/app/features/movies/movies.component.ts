@@ -55,7 +55,8 @@ export class MoviesComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
-  private currentParams: MovieParamsRequest = {
+
+  currentParams: MovieParamsRequest = {
     page: 1,
     limit: 10,
   };
@@ -89,11 +90,11 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  private fetchMovies() {
+  fetchMovies() {
     this.movieService.fetchMovies(this.currentParams);
   }
 
-  private fetchFilters() {
+  fetchFilters() {
     this.movieService.fetchFilters();
   }
 
@@ -124,7 +125,7 @@ export class MoviesComponent implements OnInit {
     }
   }
 
-  private updateFilters(update: Partial<MovieParamsRequest>) {
+  updateFilters(update: Partial<MovieParamsRequest>) {
     this.currentParams = { ...this.currentParams, ...update };
     this.fetchMovies();
   }
