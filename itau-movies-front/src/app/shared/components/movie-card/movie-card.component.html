@@ -1,0 +1,25 @@
+<mat-card class="movie-card">
+  <mat-card-header>
+    <mat-card-title>
+      {{ movie()?.nome }} ({{ movie()?.anoLancamento }})
+    </mat-card-title>
+    <mat-card-subtitle>{{ movie()?.genero }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ movie()?.descricao }}</p>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button
+      mat-icon-button
+      class="favorite-icon"
+      (click)="toggle(movie()?.id!)"
+      [matTooltip]="
+        isFav(movie()?.id!) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'
+      "
+    >
+      <mat-icon>{{ isFav(movie()?.id!) ? "star" : "star_border" }}</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
