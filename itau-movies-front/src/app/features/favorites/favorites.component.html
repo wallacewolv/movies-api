@@ -1,0 +1,26 @@
+<mat-toolbar>
+  <span>
+    <img src="star.svg" alt="Estrela" />
+    Favoritos
+  </span>
+  <span class="example-spacer"></span>
+  <button mat-raised-button (click)="goToMovies()">Ver Filmes</button>
+  <button
+    mat-icon-button
+    class="exit-to-app-button"
+    matTooltip="Logout"
+    (click)="logout()"
+  >
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+
+<p *ngIf="favorites.length === 0" class="no-favs">Nenhum favorito.</p>
+
+<div class="movie-grid" *ngIf="favorites.length > 0">
+  <app-movie-card
+    *ngFor="let favoriteMovie of favorites"
+    [movie]="favoriteMovie"
+    (toggleFavorite)="toggle()"
+  />
+</div>

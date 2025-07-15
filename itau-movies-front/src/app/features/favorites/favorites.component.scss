@@ -1,0 +1,57 @@
+$primary-color: #ff6200;
+$dark-blue: #000066;
+$white: #ffffff;
+$black: #000;
+
+:host {
+  display: block;
+  background-color: $white;
+  color: $dark-blue;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  background-color: $primary-color;
+  gap: 1rem;
+
+  span {
+    display: flex;
+    align-items: end;
+    gap: 0.5rem;
+    color: $white;
+    font-weight: bold;
+
+    img {
+      height: 2rem;
+    }
+  }
+
+  .exit-to-app-button {
+    color: $white;
+
+    &:hover {
+      background-color: lighten($primary-color, 10%);
+    }
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  padding: 1.5rem;
+  gap: 16px;
+}
+
+.no-favs {
+  text-align: center;
+  margin-top: 48px;
+  font-style: italic;
+  color: lighten($dark-blue, 30%);
+}
