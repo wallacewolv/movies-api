@@ -1,0 +1,96 @@
+$primary-color: #ff6200;
+$dark-blue: #000066;
+$white: #ffffff;
+$black: #000;
+
+:host {
+  display: block;
+  background-color: $white;
+  color: $dark-blue;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 2rem 1.5rem;
+  background-color: $primary-color;
+  gap: 1rem;
+
+  span {
+    display: flex;
+    align-items: end;
+    gap: 0.5rem;
+    color: $white;
+    font-weight: bold;
+
+    img {
+      height: 2rem;
+    }
+  }
+
+  .exit-to-app-button {
+    color: $white;
+
+    &:hover {
+      background-color: lighten($primary-color, 10%);
+    }
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  display: flex;
+  gap: 1rem;
+  padding: 0 1.5rem 1rem;
+  margin-top: 1rem;
+}
+
+.filters-panel {
+  width: 230px;
+  border-right: 1px solid $black;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  h3 {
+    margin: 0 0 1rem;
+  }
+}
+
+.movie-grid {
+  flex: 1;
+}
+
+.movies-cards {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+
+  .secondary-button {
+    color: $white;
+    background-color: $dark-blue;
+
+    &:hover {
+      background-color: lighten($dark-blue, 10%);
+    }
+
+    &[disabled] {
+      opacity: 0.4;
+    }
+  }
+
+  .pagination-text {
+    font-weight: bold;
+    color: $dark-blue;
+  }
+}
