@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 
+import { AlertService } from '../alert/alert.service';
 import {
   Movie,
   MovieParamsRequest,
@@ -13,6 +14,7 @@ import {
 })
 export class MovieService {
   private http = inject(HttpClient);
+  private alertService = inject(AlertService);
 
   private _movies = signal<Movie[]>([]);
   private _pagination = signal<Pagination>({
@@ -61,6 +63,9 @@ export class MovieService {
       next: ({ data, pagination }) => {
         this._movies.set(data);
         this._pagination.set(pagination);
+      },
+      error: (error) => {
+        this.alertService.show(error);
       },
     });
   }
