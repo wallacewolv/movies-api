@@ -21,14 +21,11 @@ import { AuthService } from '../../../core/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  private authService = inject(AuthService);
   private alertService = inject(AlertService);
+  private formBuilder = inject(FormBuilder);
 
   loginForm!: FormGroup;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-  ) {}
 
   ngOnInit(): void {
     this.buildForm();

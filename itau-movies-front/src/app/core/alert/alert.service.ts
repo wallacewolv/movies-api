@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-type AlertPayload = { message: string; timestamp: number };
+export type AlertPayload = { message: string; timestamp: number };
 
 export interface ErrorAPI {
   error: {

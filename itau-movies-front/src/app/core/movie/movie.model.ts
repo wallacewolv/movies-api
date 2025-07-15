@@ -9,7 +9,7 @@ export interface MovieResponse {
 export interface Filters {
   sortBy: string;
   order: string;
-  genero: null;
+  genero: string | null;
 }
 
 export interface Pagination {
@@ -35,4 +35,10 @@ export interface MovieParamsRequest {
   sortBy?: SortBy;
   order?: Order;
   genero?: string;
+}
+
+export interface FiltersMoviesResponse {
+  availableGenres: string[];
+  availableSortFields: string[];
+  sortOrders: string[];
 }

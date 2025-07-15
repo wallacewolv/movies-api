@@ -76,6 +76,7 @@ export class MoviesComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.fetchMovies();
+    this.fetchFilters();
   }
 
   buildForm() {
@@ -90,6 +91,10 @@ export class MoviesComponent implements OnInit {
 
   private fetchMovies() {
     this.movieService.fetchMovies(this.currentParams);
+  }
+
+  private fetchFilters() {
+    this.movieService.fetchFilters();
   }
 
   onSelectionChange(value: any) {

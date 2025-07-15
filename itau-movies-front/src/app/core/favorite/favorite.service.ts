@@ -10,14 +10,12 @@ export class FavoriteService {
   constructor() {
     this.loadFromStorage();
 
-    // Atualiza localStorage sempre que o favorites mudar
     effect(() => {
       const ids = Array.from(this.favorites());
       localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(ids));
     });
   }
 
-  /** Carrega favoritos do localStorage */
   private loadFromStorage() {
     const raw = localStorage.getItem(this.FAVORITES_KEY);
     const parsed: number[] = raw ? JSON.parse(raw) : [];

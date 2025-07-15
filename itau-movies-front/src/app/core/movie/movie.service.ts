@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 
 import { AlertService } from '../alert/alert.service';
 import {
+  FiltersMoviesResponse,
   Movie,
   MovieParamsRequest,
   MovieResponse,
@@ -26,27 +27,10 @@ export class MovieService {
     hasPrevPage: false,
   });
 
-  private _filters = signal<{
-    availableGenres: string[];
-    availableSortFields: string[];
-    sortOrders: string[];
-  }>({
-    availableGenres: [
-      'Drama',
-      'Ação',
-      'Documentário',
-      'Thriller',
-      'Crime',
-      'Romance',
-      'Animação',
-      'Aventura',
-      'Comédia',
-      'Terror',
-      'Fantasia',
-      'Ficção Científica',
-    ],
-    availableSortFields: ['nome', 'anoLancamento', 'genero'],
-    sortOrders: ['asc', 'desc'],
+  private _filters = signal<FiltersMoviesResponse>({
+    availableGenres: [],
+    availableSortFields: [],
+    sortOrders: [],
   });
 
   fetchMovies(filters: MovieParamsRequest) {
@@ -68,6 +52,19 @@ export class MovieService {
         this.alertService.show(error);
       },
     });
+  }
+
+  fetchFilters() {
+    this.http
+      .get<FiltersMoviesResponse>('/api-movies/movies/filters')
+      .subscribe({
+        next: (filters) => {
+          this._filters.set(filters);
+        },
+        error: (error) => {
+          this.alertService.show(error);
+        },
+      });
   }
 
   getMovies() {
