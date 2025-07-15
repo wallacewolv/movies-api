@@ -1,27 +1,154 @@
-# ItauMoviesFront
+# Itau Movies
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
+Aplicacao Angular 18 que consome a [API de Filmes](https://github.com/TesteDevGrowth/movies-api), com autenticacao via JWT, listagem e gerenciamento de filmes favoritos.
 
-## Development server
+> Arquitetura moderna com padrao **Feature-based**, **Angular 18**, **Standalone Components**, e **Signals**.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## 🚀 Como rodar o projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1. Clone o repositório
 
-## Build
+```bash
+git clone https://github.com/wallacewolv/movies-api
+cd movies-api
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 2. Inicie a API
 
-## Running unit tests
+```bash
+npm install
+npm dev
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+A API estara disponivel com swagger em: `https://github.com/wallacewolv/movies-api`
 
-## Running end-to-end tests
+### 3. Inicie o Frontend
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+cd itau-movies-front
+npm install
+npm start
+```
 
-## Further help
+Acesse: `http://localhost:4200`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## Arquitetura do Projeto
+
+A estrutura segue o padrao **Feature-based** com **Standalone Components** e uso de **Angular Signals** para controle de estado local e reativo.
+
+```
+src/
+└── app/
+    ├── core/                                         # Servicos de infraestrutura (auth, interceptor, guard)
+    │   ├── auth/                              
+    │   │   ├── auth.guard.ts
+    │   │   ├── auth.interceptor.ts
+    │   │   ├── auth.model.ts
+    │   │   └── auth.service.ts
+    │   ├── favorite/
+    │   │   └── favorite.service.ts
+    │   └── movie/
+    │       ├── movie.enum.ts
+    │       ├── movie.model.ts
+    │       └── movie.service.ts
+    ├── features/                                     # Funcionalidades isoladas por dominio
+    │   ├── auth/                                     # Login
+    │   │   └── login/
+    │   │       └── login.component.ts
+    │   ├── movies/                                   # Listagem de filmes
+    │   │   └── movie.component.ts
+    │   └── favorites/                                # Lista de favoritos
+    │       └── favorites.component.ts
+    ├── shared/                                       # Componentes reutilizaveis, pipes, validators
+    │   ├── components/
+    │   │   └── movie-card/
+    │   │       └── movie-card.component.ts
+    │   └── utils/
+    │       ├── pipes/
+    │       │   └── field.pipe.ts
+    │       └── validators/
+    │           └── get-portuguese-paginator-intl.ts
+    ├── app.component.ts
+    ├── app.config.ts
+    └── app.routes.ts                                 # Rotas com proteção via AuthGuard
+```
+
+---
+
+## Fluxo de Navegacao e Autenticacao
+
+### Acesso inicial
+
+* Verifica a existencia de token no `localStorage`
+* Se **nao houver token valido**, redireciona para `/login`
+* Se houver, redireciona para `/movies`
+
+### Login (`/login`)
+
+* Envia e-mail e senha para `/auth/login`
+* Se login falhar, exibe mensagem de erro
+* Se sucesso:
+
+  * Salva o token JWT no `localStorage` (`movies-token`)
+  * Redireciona para `/movies`
+
+---
+
+## 📽️ Tela de Filmes (`/movies`)
+
+* Ao entrar:
+
+  * Chama a API `/movies` com o token no `Authorization` (via `AuthInterceptor`)
+  * Se o token for invalido, redireciona para login
+  * Caso contrario, exibe a lista de filmes
+
+### Funcionalidades:
+
+* **Favoritar filme**:
+
+  * Ao clicar, o filme é adicionado ao servico de favoritos (`FavoriteService`)
+  * Os dados sao salvos tambem no `localStorage` para persistencia
+
+* **Filtragem**:
+
+  * Com base na resposta da API (ex: genero)
+  * Ao selecionar filtros, a listagem é atualizada com nova chamada
+
+---
+
+## ⭐ Tela de Favoritos (`/favorites`)
+
+* Verifica a existencia dos favotiros salvos no `localStorage`
+* Mostra os filmes favoritos salvos
+* Utiliza a lista completa de filmes ja carregada anteriormente
+* Baseia-se nos IDs salvos no `FavoriteService`
+
+---
+
+## Tecnologias Utilizadas
+
+* ✅ Angular **18**
+* ✅ Standalone Components
+* ✅ Angular **Signals**
+* ✅ `HttpClient` com `Interceptor`
+* ✅ `Router` com `AuthGuard`
+* ✅ `localStorage` para persistencia de token e favoritos
+
+---
+
+## Comandos uteis
+
+```bash
+npm start         # Inicia o frontend ou a API backend
+npm build         # Gera o build de producao
+```
+
+---
+
+## Contato
+
+Desenvolvido por [Wallace Wesley](https://github.com/wallacewolv).
