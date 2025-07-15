@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -65,10 +65,10 @@ export class MoviesComponent implements OnInit {
   pagination = this.movieService.getPagination();
   filters = this.movieService.getFilters();
 
-  sortOrders = [
-    ...this.filters().availableSortFields,
-    ...this.filters().sortOrders,
-  ];
+  sortOrders = computed(() => {
+    const { availableSortFields, sortOrders } = this.filters();
+    return [...availableSortFields, ...sortOrders];
+  });
 
   availableGenres = this.filters().availableGenres;
 

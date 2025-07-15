@@ -22,7 +22,7 @@
     <mat-form-field appearance="outline" class="custom-input">
       <mat-label>Ordenação</mat-label>
       <mat-select (selectionChange)="onSelectionChange($event.value)">
-        <mat-option *ngFor="let order of sortOrders" [value]="order">
+        <mat-option *ngFor="let order of sortOrders()" [value]="order">
           {{ order | fieldPipe }}
         </mat-option>
       </mat-select>
