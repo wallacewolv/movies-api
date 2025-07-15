@@ -15,7 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { FavoritesService } from '../../core/favorites/favorites.service';
+import { FavoriteService } from '../../core/favorite/favorite.service';
 import { Movie } from '../../core/movie/movie.model';
 import { MovieService } from '../../core/movie/movie.service';
 import { MovieCardComponent } from '../../shared/components/movie-card/movie-card.component';
@@ -40,7 +40,7 @@ import { MovieCardComponent } from '../../shared/components/movie-card/movie-car
 export class FavoritesComponent implements OnInit {
   private movieService = inject(MovieService);
   private authService = inject(AuthService);
-  private favoritesService = inject(FavoritesService);
+  private favoriteService = inject(FavoriteService);
   private router = inject(Router);
   private injector = inject(EnvironmentInjector);
 
@@ -71,7 +71,7 @@ export class FavoritesComponent implements OnInit {
 
   getAllFavorites() {
     const allFavorites = this.movieService.getMovies()();
-    const favoritesIds = this.favoritesService.getFavoriteIds();
+    const favoritesIds = this.favoriteService.getFavoriteIds();
 
     this.favorites = allFavorites.filter((m) => favoritesIds.includes(m.id));
   }

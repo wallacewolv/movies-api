@@ -3,7 +3,7 @@ import { effect, Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class FavoritesService {
+export class FavoriteService {
   private readonly FAVORITES_KEY = 'favoriteMovieIds';
   private favorites = signal<Set<number>>(new Set());
 

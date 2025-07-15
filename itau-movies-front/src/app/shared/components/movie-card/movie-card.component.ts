@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { FavoritesService } from '../../../core/favorites/favorites.service';
+import { FavoriteService } from '../../../core/favorite/favorite.service';
 import { Movie } from '../../../core/movie/movie.model';
 
 @Component({
@@ -23,17 +23,17 @@ import { Movie } from '../../../core/movie/movie.model';
   styleUrl: './movie-card.component.scss',
 })
 export class MovieCardComponent {
-  private favoritesService = inject(FavoritesService);
+  private favoriteService = inject(FavoriteService);
 
   movie = input<Movie>();
   toggleFavorite = output<void>();
 
   toggle(id: number) {
-    this.favoritesService.toggleFavorite(id);
+    this.favoriteService.toggleFavorite(id);
     this.toggleFavorite.emit();
   }
 
   isFav(id: number) {
-    return this.favoritesService.isFavorite(id);
+    return this.favoriteService.isFavorite(id);
   }
 }
