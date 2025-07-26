@@ -94,28 +94,6 @@ describe('AuthService', () => {
     });
   });
 
-  describe('#getMovies & #getFilters', () => {
-    it('should GET movies list', () => {
-      const mockMovies = [{ id: 1, name: 'Matrix' }];
-
-      service.getMovies().subscribe((list) => expect(list).toEqual(mockMovies));
-
-      const req = httpMock.expectOne('/api-movies/movies');
-      expect(req.request.method).toBe('GET');
-      req.flush(mockMovies);
-    });
-
-    it('should GET filters', () => {
-      const mockFilters = { genres: ['Ação'], sortFields: ['name'] };
-
-      service.getFilters().subscribe((f) => expect(f).toEqual(mockFilters));
-
-      const req = httpMock.expectOne('/api-movies/movies/filters');
-      expect(req.request.method).toBe('GET');
-      req.flush(mockFilters);
-    });
-  });
-
   describe('#token helpers', () => {
     it('getToken should return value from localStorage', () => {
       localStore['movies-token'] = 'abc123';

@@ -26,14 +26,6 @@ export class AuthService {
     );
   }
 
-  getMovies(): Observable<any> {
-    return this.http.get(`/api-movies/movies`);
-  }
-
-  getFilters(): Observable<any> {
-    return this.http.get(`/api-movies/movies/filters`);
-  }
-
   logout() {
     this.clearToken();
     this.isAuthenticated.set(false);
