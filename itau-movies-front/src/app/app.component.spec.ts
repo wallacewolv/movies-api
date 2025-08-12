@@ -2,33 +2,30 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  AlertPayload,
+  AlertServiceInterface,
+} from '@core/contracts/alert/service/alert-service.interface';
+import { ALERT_DUMMY } from '@core/utils/dummys/alert.dummy';
 
 import { AppComponent } from './app.component';
-import { AlertPayload, AlertService } from './core/alert/alert.service';
 
 describe('AppComponent', () => {
   let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
-  let alertServiceSpy: jasmine.SpyObj<AlertService>;
-  const mockAlertSignal = signal<AlertPayload>({
-    message: '',
-    timestamp: Date.now(),
-  });
+  let alertServiceSpy: jasmine.SpyObj<AlertServiceInterface>;
+  const mockAlertSignal = signal<AlertPayload>(ALERT_DUMMY.ALERT_INITIAL);
 
   beforeEach(async () => {
-    snackBarSpy = jasmine.createSpyObj<MatSnackBar>('MatSnackBar', ['open']);
-    alertServiceSpy = jasmine.createSpyObj<AlertService>(
-      'AlertService',
-      ['clear'],
-      {
-        alertMessage: mockAlertSignal,
-      },
-    );
+    snackBarSpy = jasmine.createSpyObj<MatSnackBar>(['open']);
+    alertServiceSpy = jasmine.createSpyObj<AlertServiceInterface>(['clear'], {
+      alertMessage: mockAlertSignal,
+    });
 
     await TestBed.configureTestingModule({
       imports: [AppComponent, NoopAnimationsModule],
       providers: [
         { provide: MatSnackBar, useValue: snackBarSpy },
-        { provide: AlertService, useValue: alertServiceSpy },
+        { provide: AlertServiceInterface, useValue: alertServiceSpy },
       ],
     }).compileComponents();
   });
