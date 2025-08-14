@@ -1,31 +1,31 @@
 import { Routes } from '@angular/router';
-
-import { AuthGuard } from './core/auth/auth.guard';
+import { AuthGuard } from '@core/guards/auth.guard';
+import { Route } from '@core/utils/enums/route.enum';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'movies', pathMatch: 'full' },
+  { path: Route.HOME, redirectTo: Route.MOVIES, pathMatch: 'full' },
   {
-    path: 'login',
+    path: Route.LOGIN,
     loadComponent: () =>
-      import('./features/auth/login/login.component').then(
+      import('@presentation/auth/login/login.component').then(
         (m) => m.LoginComponent,
       ),
   },
   {
-    path: 'movies',
+    path: Route.MOVIES,
     loadComponent: () =>
-      import('./features/movies/movies.component').then(
+      import('@presentation/movies/movies.component').then(
         (m) => m.MoviesComponent,
       ),
     canActivate: [AuthGuard],
   },
   {
-    path: 'favorites',
+    path: Route.FAVORITES,
     loadComponent: () =>
-      import('./features/favorites/favorites.component').then(
+      import('@presentation/favorites/favorites.component').then(
         (m) => m.FavoritesComponent,
       ),
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: 'movies' },
+  { path: Route.WILD_CARD, redirectTo: Route.MOVIES },
 ];
